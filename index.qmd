@@ -1,0 +1,108 @@
+---
+title: "An Interactive Timetable of the Evolution of Computer Languages"
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{python}
+import pandas as pd
+import plotly.io as pio
+import plotly.express as px
+
+
+rows = [
+    {
+        "Language":"Machine language",
+        "Year":1945,
+        "Authors":"(no single author)",
+        "Purpose":"Created as the binary instructions that a computer executes directly.",
+        "currentUse":"Still the final form that all programs become after compilation."
+    },
+    {
+        "Language":"Assembly Language",
+        "Year":1951,
+        "Authors":"Early computer scientists",
+        "Purpose":"Developed to replace raw binary with human-readable mnemonics for hardware instructions.",
+        "currentUse":"Embedded Systems (microcontrollers in medical devices and wearables), video/audio codecs, cybersecurity."
+    },
+        {
+        "Language":"FORTRAN",
+        "Year":1957,
+        "Authors":"John Backus (IBM)",
+        "Purpose":"Designed to allow scientists to write mathematical formulas in a readable programming form.",
+        "currentUse":"Still used in scientific computing and high-performance numerical simulations."
+    },
+        {
+        "Language":"Lisp",
+        "Year":1958,
+        "Authors":"John McCarthy",
+        "Purpose":"Created to support symbolic computation and AI resaearch.",
+        "currentUse":"Influences modern functional programming and is still used in AI-related domains."
+    },
+        {
+        "Language":"C",
+        "Year":1972,
+        "Authors":"Dennis Ritchie",
+        "Purpose":"Built to develop the Unix operating system with efficiency and portability.",
+        "currentUse":"Widely used in operating systems, embedded systems, and performance-critical software such as operating system kernels (Linux, Windows, MacOS)."
+    },
+        {
+        "Language":"SQL",
+        "Year":1974,
+        "Authors":"Donald Chamberlin & Raymond Boyce (IBM)",
+        "Purpose":"Created to query and manage relational databases using simple, structured commands.",
+        "currentUse":"The standard language for business databases, analytics, and backend data systems."
+    },
+        {
+        "Language":"C++",
+        "Year":1979,
+        "Authors":"Bjarne Stroustrup",
+        "Purpose":"Developed to extend C with object-oriented programming features while maintaining speed.",
+        "currentUse":"Widely used in game development, finance, real-time systems, and high-performance applications like the rendering engine of Google Chrome and Safari."
+    },
+        {
+        "Language":"Python",
+        "Year":1991,
+        "Authors":"Guido van Rossum",
+        "Purpose":"Designed to emphasize readability and programmer productivity.",
+        "currentUse":"Extremely popular in automation, data science, education, and web development."
+    },
+        {
+        "Language":"R",
+        "Year":1993,
+        "Authors":"Ross Ihaka & Robert Gentleman",
+        "Purpose":"Created specifically for statistical computing and data visualization.",
+        "currentUse":"Widely used in research, academia, and applied data analysis."
+    },
+        {
+        "Language":"Julia",
+        "Year":2012,
+        "Authors":"Jeff Bezanson, Stefan Karpinski, Viral Shah, Alan Edelman",
+        "Purpose":"Developed to combine high-level syntax with high-performance scientific computing.",
+        "currentUse":"Growing in scientific research, machine learning, and numerical modeling."
+    },
+]
+
+df = pd.DataFrame(rows).sort_values("Year")
+df
+
+fig = px.scatter(
+    df,
+    x="Year",
+    y="Language",
+    hover_data=["Authors", "Purpose", "currentUse"],
+    title="Interactive Timeline of Programming Languages"
+)
+fig.update_traces(marker=dict(size=12))
+fig.update_layout(xaxis=dict(dtick=10))
+
+fig
+```
+
+```{python}
+from IPython.display import Markdown, display
+
+display(Markdown(df[["Language","Year","Authors","Purpose","currentUse"]].to_markdown(index=False)))
+```
